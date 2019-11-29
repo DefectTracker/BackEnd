@@ -24,7 +24,7 @@ public class AuditLogServiceImpl implements AuditLogService{
 
 	//get all audit logs by defect id
 	@Override
-	public List<AuditLog> getAuditLogById(String defectId) {
+	public List<AuditLog> getAuditLogById(Long defectId) {
 		return auditLogRepository.findAudilLogByDefectId(defectId);
 	}
 

@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(schema = "defectservices", name = "project")
@@ -33,6 +34,12 @@ public class Project implements Serializable {
 	@Pattern(regexp = "[a-z-A-Z]*", message = "Project Name can not contain invalid characters")
 	@Column(name = "project_name")
 	private String projectName;
+	
+	@Nullable
+	@Size(min = 2, max = 50)
+	@Column(name = "project_abbr")
+	private String projectAbbr;
+
 
 	@NotEmpty
 	@Size(min = 2, max = 20)
@@ -41,10 +48,10 @@ public class Project implements Serializable {
 	private String type;
 
 	@DateTimeFormat(iso = ISO.DATE)
-	private Date startDate = currentDay;
+	private Date startDate;
 
 	@DateTimeFormat(iso = ISO.DATE)
-	private Date endDate = currentDay;
+	private Date endDate;
 
 	@Column(name = "duration")
 	private Long duration;
@@ -87,7 +94,7 @@ public class Project implements Serializable {
 	}
 
 	public void setStartDate(Date startDate) {
-		this.startDate = currentDay;
+		this.startDate = startDate;
 	}
 
 	public Date getEndDate() {
@@ -95,7 +102,7 @@ public class Project implements Serializable {
 	}
 
 	public void setEndDate(Date endDate) {
-		this.endDate = currentDay;
+		this.endDate = endDate;
 	}
 
 	public Long getDuration() {
@@ -112,6 +119,14 @@ public class Project implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public String getProjectAbbr() {
+		return projectAbbr;
+	}
+
+	public void setProjectAbbr(String projectAbbr) {
+		this.projectAbbr = projectAbbr;
 	}
 
 }

@@ -1,11 +1,16 @@
 package com.sgic.internal.defecttracker.defectservice.controller.dto;
 
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class DefectData {
 	
-	private String defectId;
-	private String abbre;
+	private Long defectId;
+	private String defectAbbr;
+	private String abbre = "private String projectAbbr";
 	private String projectId;
 	private String moduleId;
 	private String priority;
@@ -21,15 +26,23 @@ public class DefectData {
 	private String availableIn;
 	private String foundIn;
 	private String fixedIn;
-	private Date dateAndTime;
 	private String moduleName;
 	private String projectName;
+	private String projectAbbr;
 
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	LocalDate date = LocalDate.now();
+	private String dateAndTime=date.format(formatter);
 	
-	public String getDefectId() {
+	private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    
+	 Date date1 = new Date();
+	 private String fixDate=sdf.format(date1);
+	
+	public Long getDefectId() {
 		return defectId;
 	}
-	public void setDefectId(String defectId) {
+	public void setDefectId(Long defectId) {
 		this.defectId = defectId;
 	}
 	public String getAbbre() {
@@ -105,19 +118,12 @@ public class DefectData {
 	public void setFixedIn(String fixedIn) {
 		this.fixedIn = fixedIn;
 	}
-	public Date getDateAndTime() {
-		return dateAndTime;
-	}
-	public void setDateAndTime(Date dateAndTime) {
-		this.dateAndTime = dateAndTime;
-	}
 	public String getModuleName() {
 		return moduleName;
 	}
 	public void setModuleName(String moduleName) {
 		this.moduleName = moduleName;
 	}
-	
 	public String getProjectName() {
 		return projectName;
 	}
@@ -148,7 +154,30 @@ public class DefectData {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getDateAndTime() {
+		return dateAndTime;
+	}
+	public void setDateAndTime(String dateAndTime) {
+		this.dateAndTime = dateAndTime;
+	}
+	public String getFixDate() {
+		return fixDate;
+	}
+	public void setFixDate(String fixDate) {
+		this.fixDate = fixDate;
+	}
+	public String getDefectAbbr() {
+		return defectAbbr;
+	}
+	public void setDefectAbbr(String defectAbbr) {
+		this.defectAbbr = defectAbbr;
+	}
+	public String getProjectAbbr() {
+		return projectAbbr;
+	}
+	public void setProjectAbbr(String projectAbbr) {
+		this.projectAbbr = projectAbbr;
+	}
 	
-	
-	
+		
 }

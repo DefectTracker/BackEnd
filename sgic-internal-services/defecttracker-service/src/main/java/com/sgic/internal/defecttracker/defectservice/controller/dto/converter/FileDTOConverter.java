@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sgic.internal.defecttracker.defectservice.controller.dto.FileData;
@@ -43,7 +42,7 @@ public class FileDTOConverter {
 		return fileData;
 	}
 
-	public FileData FileToDTO(MultipartFile file, String defectId) throws IOException {
+	public FileData FileToDTO(MultipartFile file, Long defectId) throws IOException {
 		// String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		String fileName = fileStorageService.storeFile(file);
 		String fileurl = PATH + fileName;

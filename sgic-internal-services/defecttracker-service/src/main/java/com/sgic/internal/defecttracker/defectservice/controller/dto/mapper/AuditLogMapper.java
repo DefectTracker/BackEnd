@@ -24,7 +24,7 @@ public class AuditLogMapper {
 		return responseAuditLog;
 	}
 	
-	public List<AuditLog> getAuditLogById(String defectId){
+	public List<AuditLog> getAuditLogById(Long defectId){
 		return auditLogService.getAuditLogById(defectId);
 	}
 	

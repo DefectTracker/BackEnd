@@ -18,6 +18,10 @@ public class AuditLogDtoConverter {
 		auditLog.setStatus(auditLogData.getStatus());
 		auditLog.setUser(auditLogData.getUser());
 		auditLog.setFixDate(auditLogData.getFixDate());
+		auditLog.setPriority(auditLogData.getPriority());
+		auditLog.setSeverity(auditLogData.getSeverity());
+		auditLog.setType(auditLogData.getType());
+		auditLog.setReassignTo(auditLogData.getReassignTo());
 		
 		Defect defect = new Defect();
 		defect.setDefectId(auditLogData.getDefectId());
@@ -35,6 +39,10 @@ public class AuditLogDtoConverter {
 		auditLogData.setUser(auditLog.getUser());
 		auditLogData.setFixDate(auditLog.getFixDate());
 		auditLogData.setDefectId(auditLog.getDefect().getDefectId());
+		auditLogData.setPriority(auditLog.getPriority());
+		auditLogData.setSeverity(auditLog.getSeverity());
+		auditLogData.setType(auditLog.getType());
+		auditLogData.setReassignTo(auditLog.getReassignTo());
 		
 		return auditLogData;
 	}
@@ -52,6 +60,10 @@ public class AuditLogDtoConverter {
 			auditLogData.setUser(auditLog.getUser());
 			auditLogData.setFixDate(auditLog.getFixDate());
 			auditLogData.setDefectId(auditLog.getDefect().getDefectId());
+			auditLogData.setPriority(auditLog.getPriority());
+			auditLogData.setSeverity(auditLog.getSeverity());
+			auditLogData.setReassignTo(auditLog.getReassignTo());
+			auditLogData.setType(auditLog.getType());
 			
 			list.add(auditLogData);
 		}

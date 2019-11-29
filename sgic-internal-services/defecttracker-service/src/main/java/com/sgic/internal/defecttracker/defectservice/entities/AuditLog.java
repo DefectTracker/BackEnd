@@ -21,7 +21,43 @@ public class AuditLog implements Serializable {
 	private String user;
 	private String fixDate;
 	private String status;
-	
+	private String type;
+	private String severity;
+	private String priority;
+	private String reassignTo;
+		
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getSeverity() {
+		return severity;
+	}
+
+	public void setSeverity(String severity) {
+		this.severity = severity;
+	}
+
+	public String getPriority() {
+		return priority;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public String getReassignTo() {
+		return reassignTo;
+	}
+
+	public void setReassignTo(String reassignTo) {
+		this.reassignTo = reassignTo;
+	}
+
 	@ManyToOne
 	@JoinColumn(name="defectId", nullable=false)
 	private Defect defect;

@@ -1,9 +1,6 @@
 package com.sgic.internal.defecttracker.defectservice.controller;
 
 import java.util.List;
-
-import javax.validation.Valid;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.sgic.common.api.enums.RestApiResponseStatus;
-import com.sgic.common.api.response.ApiResponse;
 import com.sgic.internal.defecttracker.defectservice.controller.dto.SubModuleData;
+import com.sgic.internal.defecttracker.defectservice.controller.dto.mapper.ModuleDataMapper;
 import com.sgic.internal.defecttracker.defectservice.controller.dto.mapper.SubModuleDataMapper;
-
+import com.sgic.internal.defecttracker.defectservice.entities.SubModule;
 import com.sgic.internal.defecttracker.defectservice.repositories.SubModuleRepository;
+import com.sgic.internal.defecttracker.defectservice.services.ModuleService;
 @CrossOrigin
 @RestController
 public class SubModuleController {
@@ -31,14 +27,22 @@ public class SubModuleController {
 	private static Logger logger = LogManager.getLogger(SubModuleRepository.class);
 
 	@Autowired
+	public ModuleDataMapper moduleDataMapper;
+
+	@Autowired
+	public ModuleService moduleService;
+
+	@Autowired
+	public SubModuleRepository subModuleRepository;
+
+	@Autowired
 	public SubModuleDataMapper subModuleDataMapper;
 
 	@PostMapping(value = "/createSubModule")
-	public ResponseEntity<Object> createSubModule(@Valid @RequestBody SubModuleData subModuleData) {
-		subModuleDataMapper.saveSubModuleforMapper(subModuleData);
-		return new ResponseEntity<>(new ApiResponse(RestApiResponseStatus.OK), HttpStatus.OK);
+    public SubModule createSubModule(@RequestBody SubModuleData subModuleData) {
+		return subModuleDataMapper.saveSubModuleforMapper(subModuleData);
 	}
-
+	
 	// Post Mapping For Create a Module
 	@GetMapping(value = "/GetAllsubmodule")
 	public ResponseEntity<List<SubModuleData>> listSubModuleInfo() {
@@ -49,9 +53,16 @@ public class SubModuleController {
 
 	// Get Mapping For Get Sub Module By Id
 	@GetMapping("/getSubModuleById/{subModuleId}")
-	public ResponseEntity<SubModuleData> getSubModuleById(@PathVariable String subModuleId) {
+	public ResponseEntity<SubModuleData> getSubModuleById(@PathVariable(name="subModuleId") String subModuleId) {
 		logger.info("Sub Moduleare get by Id ");
 		return new ResponseEntity<>(subModuleDataMapper.getBySubModuleId(subModuleId), HttpStatus.OK);
+	}
+	
+	//////// Get SubmoduleId by moduleId 27-11-2019
+	@GetMapping("/getModuleById/{moduleId}")
+	public ResponseEntity<List<SubModuleData>> getModuleById(@PathVariable(name="moduleId") String moduleId) {
+		logger.info(" Module get by Id ");
+		return new ResponseEntity<>(subModuleDataMapper.getByModuleId(moduleId), HttpStatus.OK);
 	}
 
 	// Delete Mapping For SubModule
@@ -74,11 +85,12 @@ public class SubModuleController {
 		}
 	}
 
-		// Get Mapping For Submodule Name
+//		// Get Mapping For Submodule Name
 	@GetMapping("/getSubModuleName/{submoduleName}")
 	public List<SubModuleData> getByprojectName(@PathVariable String submoduleName) {
 		logger.info("SubModule are get by name ");
 		return subModuleDataMapper.getBysubModuleNameForMapper(submoduleName);
 	}
+
 
 }

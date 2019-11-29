@@ -12,7 +12,7 @@ public class RoleAllocationDto {
 //	private Long empId;
 	private String firstname;
 	private String designationname;
-	
+	private String projectId;
 	
 	
 	

@@ -28,7 +28,7 @@ public class DefectServiceImpl implements DefectService {
 
 	//get defects by id
 	@Override
-	public Defect getByDefectId(String defectId) {
+	public Defect getByDefectId(Long defectId) {
 		logger.info("DefectService started -> GetAllDefectById");
 		return defectRepository.getByDefectId(defectId);
 	}
@@ -38,7 +38,7 @@ public class DefectServiceImpl implements DefectService {
 	public Defect updateDefect(Defect defect) {
 	
 		logger.info("DefectService started -> updateDefect");
-		String defectId=defect.getDefectId();
+		Long defectId=defect.getDefectId();
 		logger.info("DefectService started -> getDefectId");
 		boolean isExist = defectRepository.getByDefectId(defectId)!= null;
 		if (isExist) {
@@ -52,7 +52,7 @@ public class DefectServiceImpl implements DefectService {
 	
 	//delete defects
 	@Override
-	public Defect deleteDefect(String defectId) {
+	public Defect deleteDefect(Long defectId) {
 	     logger.info("DefectService started -> DeleteDefectById");
 		 defectRepository.deleteById(defectId);
 		 return null;
@@ -81,7 +81,7 @@ public class DefectServiceImpl implements DefectService {
 
 	//check whether the defect is already exists or not
 	@Override
-	public boolean isDefectAlreadyExist(String defectId) {
+	public boolean isDefectAlreadyExist(Long defectId) {
 		logger.info("DefectService started -> isDefectAlreadyExist");
 		return defectRepository.existsById(defectId);
 	}
@@ -218,6 +218,11 @@ public class DefectServiceImpl implements DefectService {
 		Long TotalCount = (totCount - totRejCount);
 
 		return TotalCount;
+	}
+
+	@Override
+	public List<Defect> getByDefectAbbre(String defectAbbr) {
+		return defectRepository.getByDefectAbbr(defectAbbr);
 	}
 
 	

@@ -10,7 +10,7 @@ import com.sgic.internal.defecttracker.defectservice.entities.AuditLog;
 public interface AuditLogService {
 	
 	public AuditLog createAuditLog(AuditLog auditLog);
-	public List<AuditLog> getAuditLogById(String defectId);
+	public List<AuditLog> getAuditLogById(Long defectId);
 	public List<AuditLog> getAllAuditLogs();
 
 }

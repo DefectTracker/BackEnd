@@ -3,6 +3,8 @@ package com.sgic.internal.defecttracker.defectservice.entities;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,6 +14,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+import org.springframework.lang.Nullable;
 
 import com.sgic.internal.defecttracker.defectservice.entities.Module;
 import com.sgic.internal.defecttracker.defectservice.entities.Project;
@@ -21,10 +24,13 @@ import com.sgic.internal.defecttracker.defectservice.entities.Project;
 public class Defect {
 	
 	@Id
-	@Size(min=2, max=50)
-	private String defectId;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long defectId;
 	
-	@NotNull
+	@Nullable
+	private String defectAbbr;
+	
+	@Nullable
 	@Size(min=2, max=20)
 	private String abbre;
 	
@@ -77,20 +83,35 @@ public class Defect {
 	@Size(min=2, max=50)
 	private String fixedIn;
 	
-	@NotNull
-	@DateTimeFormat(iso=ISO.DATE)
-	private Date dateAndTime;
+	@Nullable
+	private String dateAndTime;
+	
+	@Nullable
+	private String fixDate;
+	
 	
 	//Generate getters and Setters
-	public String getDefectId() {
-		return defectId;
-	}
-	public void setDefectId(String defectId) {
-		this.defectId = defectId;
-	}
+	
 	public String getAbbre() {
 		return abbre;
 	}
+	
+	public Long getDefectId() {
+		return defectId;
+	}
+
+	public void setDefectId(Long defectId) {
+		this.defectId = defectId;
+	}
+
+	public String getDefectAbbr() {
+		return defectAbbr;
+	}
+
+	public void setDefectAbbr(String defectAbbr) {
+		this.defectAbbr = defectAbbr;
+	}
+
 	public void setAbbre(String abbre) {
 		this.abbre = abbre;
 	}
@@ -149,13 +170,12 @@ public class Defect {
 	public void setFixedIn(String fixedIn) {
 		this.fixedIn = fixedIn;
 	}
-	public Date getDateAndTime() {
+	public String getDateAndTime() {
 		return dateAndTime;
 	}
-	public void setDateAndTime(Date dateAndTime) {
+	public void setDateAndTime(String dateAndTime) {
 		this.dateAndTime = dateAndTime;
 	}
-	
 	public Project getProject() {
 		return project;
 	}
@@ -191,6 +211,12 @@ public class Defect {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getFixDate() {
+		return fixDate;
+	}
+	public void setFixDate(String fixDate) {
+		this.fixDate = fixDate;
 	}
 	
 }

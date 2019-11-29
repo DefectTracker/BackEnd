@@ -10,6 +10,8 @@ public class ProjectDto {
 	private String projectId;
 
 	private String projectName;
+	
+	private String projectAbbr;
 
 	private String type;
 
@@ -20,8 +22,6 @@ public class ProjectDto {
 	private Long duration;
 
 	private String status;
-
-
 
 	public String getProjectId() {
 		return projectId;
@@ -77,6 +77,14 @@ public class ProjectDto {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getProjectAbbr() {
+		return projectAbbr;
+	}
+
+	public void setProjectAbbr(String projectAbbr) {
+		this.projectAbbr = projectAbbr;
 	}
 
 

@@ -9,7 +9,7 @@ public class Employee {
 	private String firstname;
 	private String email;
 	private int availability;
-	private boolean bench = false;
+	private boolean bench;
 	private Long designationid;
 	private String designationname;
 

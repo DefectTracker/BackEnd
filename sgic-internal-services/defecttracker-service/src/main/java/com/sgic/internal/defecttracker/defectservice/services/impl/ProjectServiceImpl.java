@@ -85,4 +85,9 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectRepository.getBystartDate(date);
 	}
 
+	@Override
+	public Long countProject() {
+		return projectRepository.count();
+	}
+
 }

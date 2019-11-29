@@ -10,9 +10,12 @@ import com.sgic.internal.defecttracker.defectservice.entities.Defect;
 import com.sgic.internal.defecttracker.defectservice.entities.Module;
 
 
-public interface DefectRepository extends JpaRepository<Defect, String >{
+public interface DefectRepository extends JpaRepository<Defect, Long >{
 
-Defect getByDefectId(String defectId);
+Defect getByDefectId(Long defectId);
+
+@Query(value ="FROM Defect WHERE defect_abbr =:defectAbbr") 
+List<Defect> getByDefectAbbr(String defectAbbr);
 
 @Query(value ="FROM Defect WHERE project_id =:projectId") 
 List<Defect>getByProjectId(@Param("projectId")String projectId); 

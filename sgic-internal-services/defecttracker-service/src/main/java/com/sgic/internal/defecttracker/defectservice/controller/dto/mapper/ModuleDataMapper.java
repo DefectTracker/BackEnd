@@ -16,10 +16,12 @@ public class ModuleDataMapper {
 	@Autowired
 	public  ModuleService moduleService;
 	
-	public List<ModuleData>getAllModuleForMapper(){
-		List<Module>moduleList =moduleService.getallDetails();
-		return ModuleConverter.moduleToModuleData(moduleList);
+	
+	public List<ModuleData>getAllModuleForMapper(String projectid){
+		List<Module>moduleList =moduleService.getallModuleDetails(projectid);
+		return ModuleConverter.moduleToModuleDataList(moduleList);
 	}
+	
 	public Module saveModuleforMapper(ModuleData moduleData) {
 		Module module = ModuleConverter.moduleDataToModule(moduleData);
 		return moduleService.createModule(module);
@@ -36,7 +38,7 @@ public class ModuleDataMapper {
 	
 	public List<ModuleData> getBymoduleNameForMapper (String moduleName){
 		List<Module> module = moduleService.getBymoduleName(moduleName);
-		return ModuleConverter.moduleToModuleData(module);
+		return ModuleConverter.moduleToModuleDataList(module);
 	}
 	
 	public Module UpdateModule(String moduleId, ModuleData moduleData) {
@@ -49,5 +51,13 @@ public class ModuleDataMapper {
 		return null;
 	}
 
+
+	@SuppressWarnings("static-access")
+	// List Method for ModuleMapper
+	public List<ModuleData> getAllSortModuleInfo(String moduleId) {
+		List<Module> sortModuleList = moduleService.findByModuleOrderByModuleIdDesc(moduleId);
+		return ModuleConverter.moduleToModuleDataList(sortModuleList);
+
+	}
 
 }

@@ -40,7 +40,7 @@ public class AuditLogController {
 
 	//get all audit logs by defect id
 	@GetMapping(value = "/auditLog/{defectId}")
-	public List<AuditLog> getListAuditLog(@PathVariable String defectId) {
+	public List<AuditLog> getListAuditLog(@PathVariable Long defectId) {
 
 		LOG.info("auditlog getting");
 		return auditLogMapper.getAuditLogById(defectId);

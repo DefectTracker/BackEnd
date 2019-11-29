@@ -38,5 +38,7 @@ public interface ProjectService {
 
 	// Method for GetProjectStatus in Project Entity
 	public List<Project> getBystatus(String status);
+	
+	public Long countProject();
 
 }

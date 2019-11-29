@@ -7,7 +7,8 @@ public class SubModuleData {
 
 	private String subModuleId;
 	private String subModuleName;
-//	private String moduleId;
+	private String moduleId;
+	private String projectId;
 
 	
 	public SubModuleData(String subModuleId, String subModuleName) {
@@ -19,16 +20,14 @@ public class SubModuleData {
 	public SubModuleData() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
-//	public String getModuleId() {
-//		return moduleId;
-//	}
-//
-//	public void setModuleId(String moduleId) {
-//		this.moduleId = moduleId;
-//	}
+	public String getModuleId() {
+		return moduleId;
+	}
+
+	public void setModuleId(String moduleId) {
+		this.moduleId = moduleId;
+	}
 
 	// Getters and Setters for Sub Module
 	public String getSubModuleId() {
@@ -46,6 +45,14 @@ public class SubModuleData {
 
 	public void setSubModuleName(String subModuleName) {
 		this.subModuleName = subModuleName;
+	}
+
+	public String getProjectId() {
+		return projectId;
+	}
+
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 
 

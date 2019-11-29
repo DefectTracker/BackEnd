@@ -1,15 +1,16 @@
 package com.sgic.internal.defecttracker.defectservice.entities;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+@Embeddable
 @Entity
 @Table(schema = "defectservices", name = "submodule")
 public class SubModule {
@@ -33,6 +34,8 @@ public class SubModule {
 		this.subModuleName = subModuleName;
 	}
 
+	
+	@Embedded
 	@ManyToOne
 	@JoinColumn(name = "moduleId", nullable = false)
 	@JsonProperty(access = Access.WRITE_ONLY)
@@ -45,5 +48,4 @@ public class SubModule {
 	public void setModule(Module module) {
 		this.module = module;
 	}
-
 }

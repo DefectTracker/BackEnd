@@ -74,15 +74,16 @@ public class DashboardServiceImpl implements DashboardService {
 
 	@Override
 	public Double calculateSeverityIndex() {
-		int countLow = countLow();
-		int countMedium = countMedium();
-		int countHigh = countHigh();
+		 
+		int countLow = countLow() - lowReject();
+		int countMedium = countMedium() - mediumReject();
+		int countHigh = countHigh()-  highReject();
 		int fetchHighWeight = fetchHighWeight();
 		int fetchMediumWeight = fetchMediumWeight();
 		int fetchLowWeight = fetchLowWeight();
 		long totalCount = TotalCount() - countReject();
 
-		int severityIndex1 = ((countHigh * fetchHighWeight) + (countMedium * fetchMediumWeight)
+		int severityIndex1 = ((countHigh* fetchHighWeight) + (countMedium * fetchMediumWeight)
 				+ (countLow * fetchLowWeight));
 		double severityIndex1d = severityIndex1;
 
@@ -96,6 +97,17 @@ public class DashboardServiceImpl implements DashboardService {
 	public Integer countReject() {
 		return defectRepository.countByStatusRejected();
 	}
+	
+	public Integer mediumReject() {
+		return defectRepository.countByStatusRejectedmedium();
+	}
+	public Integer lowReject() {
+		return defectRepository.countByStatusRejectedlow();
+	}
+	public Integer highReject() {
+		return defectRepository.countByStatusRejectedHigh();
+	}
+	
 	// For Severity Index End
 
 	public float CalculateMedium(long count, int reject, int medium, int rejectmedium) {

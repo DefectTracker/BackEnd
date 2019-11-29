@@ -29,6 +29,10 @@ public class SubModuleDataMapper {
 		SubModule subModule = subModuleService.getBySubModuleId(subModuleId);
 		return SubModuleConverter.subModuleToSubModuleData(subModule);
 	}
+	public List<SubModuleData> getByModuleId(String moduleId) {
+		List<SubModule> subModule = subModuleService.getByModuleId(moduleId);
+		return SubModuleConverter.subModuleToSubModuleData(subModule);
+	}
 
 	public List<SubModuleData> getBysubModuleNameForMapper(String subModuleName) {
 		List<SubModule> subModule = subModuleService.getBysubModuleName(subModuleName);

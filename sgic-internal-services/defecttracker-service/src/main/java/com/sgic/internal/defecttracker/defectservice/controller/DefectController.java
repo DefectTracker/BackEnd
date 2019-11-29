@@ -21,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.sgic.internal.defecttracker.defectservice.controller.dto.DefectData;
 import com.sgic.internal.defecttracker.defectservice.controller.dto.mapper.DefectDataMapper;
+import com.sgic.internal.defecttracker.defectservice.entities.Defect;
 import com.sgic.internal.defecttracker.defectservice.services.DefectService;
 
 @CrossOrigin
@@ -42,21 +43,29 @@ public class DefectController {
 	}
 
 	@GetMapping(value = "/getDefectById/{defectId}")
-	public DefectData getByDefectId(@PathVariable(name = "defectId") String defectId) {
+	public DefectData getByDefectId(@PathVariable(name = "defectId") Long defectId) {
 		logger.info("Controller -> getByDefectId Successfull");
 		return defectDataMapper.getByDefectId(defectId);
+
+	}
+	
+	@GetMapping(value = "/getDefectByAbbr/{defectAbbr}")
+	public List<DefectData> getByDefectAbbr(@PathVariable(name = "defectAbbr") String defectAbbr) {
+		logger.info("Controller -> getByDefectId Successfull");
+		return defectDataMapper.getByDefectAbbrevation(defectAbbr);
 
 	}
 
 	// create defects
 	@PostMapping("/saveDefect")
-	public ResponseEntity<String> saveDefect(@Valid @RequestBody DefectData defectData) {
+	public Defect saveDefect(@Valid @RequestBody DefectData defectData) {
+//		return defectDataMapper.createDefect(defectData);
 		if (defectDataMapper.createDefect(defectData) != null) {
 			logger.info("Defect Controller -> Defects Created Successful");
-			return new ResponseEntity<>("Defect added succesfully", HttpStatus.OK);
+			return defectDataMapper.createDefect(defectData);
 		}
 		logger.info("Defect Controller -> Defects creation FAILED!!!");
-		return new ResponseEntity<>("SAVE FAILED!", HttpStatus.BAD_REQUEST);
+		return null;
 	}
 
 	// update defects
@@ -72,7 +81,7 @@ public class DefectController {
 
 	// delete defects
 	@DeleteMapping("/deleteDefect/{defectId}")
-	public ResponseEntity<String> deleteCompany(@PathVariable(name = "defectId") String defectId) {
+	public ResponseEntity<String> deleteCompany(@PathVariable(name = "defectId") Long defectId) {
 		System.out.print(defectId);
 		if (defectDataMapper.getByDefectId(defectId) != null) {
 			if (defectDataMapper.deleteDefect(defectId) == null) {

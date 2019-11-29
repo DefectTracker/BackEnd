@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.sgic.internal.defecttracker.defectservice.controller.dto.converter.ResourceAllocationConverter;
@@ -27,7 +28,7 @@ public class ResourceAllocationDtoMapper {
 
 	@SuppressWarnings("static-access")
 //	<--- Save Method's Mapped ---Single Object -->
-	public ResourceAllocation saveResource(ResourceAllocationDto resourceAllocationDto) {
+	public ResponseEntity<String> saveResource(ResourceAllocationDto resourceAllocationDto) {
 		logger.info("Resource Allaction Mapper --- Successfully Saved Resource Allocation --- Single Object ");
 		return resourceAllocationService.saveresource(
 				resourceAllocationConverter.ResourceAllocationDtoToResourceAllocation(resourceAllocationDto));
@@ -71,6 +72,19 @@ public class ResourceAllocationDtoMapper {
 	public void deleteResourceByresourceId(Long resourceId) {
 		logger.info("Resource Allaction Mapper --- Successfully Resource Deleted --- ");
 		resourceAllocationService.deleteResourceById(resourceId);
+	}
+	
+	@SuppressWarnings("static-access")
+	public List<ResourceAllocationDto> getResourceAllocationByEmployee(Long empId) {
+		List<ResourceAllocation> resourceAllocation = resourceAllocationService.getByEmployee(empId);
+		return resourceAllocationConverter.ResourceAllocationToResourceAllocationDtoList(resourceAllocation);
+	}
+	
+	@SuppressWarnings("static-access")
+	public List<ResourceAllocationDto> getResourceAllocationByprojectId(String projectId) {
+		List<ResourceAllocation> resourceAllocation =resourceAllocationService.getByprojectId(projectId);
+		return resourceAllocationConverter.ResourceAllocationToResourceAllocationDtoList(resourceAllocation);
+
 	}
 
 }

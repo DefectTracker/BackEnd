@@ -20,5 +20,5 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
 //	    Object[] findCommentsByDefectId();
 //	
 	@Query("SELECT c FROM AuditLog c WHERE c.defect.id= :defectId")
-	List<AuditLog> findAudilLogByDefectId(@Param("defectId") String defectId);
+	List<AuditLog> findAudilLogByDefectId(@Param("defectId") Long defectId);
 }

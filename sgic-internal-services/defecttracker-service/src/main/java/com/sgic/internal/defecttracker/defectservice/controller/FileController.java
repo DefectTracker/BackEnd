@@ -42,7 +42,7 @@ public class FileController {
 	//upload files-> attachments
 	@PostMapping("/uploadFile")
 	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file,
-			@RequestParam("defectId") String defectId) throws IOException {
+			@RequestParam("defectId") Long defectId) throws IOException {
 
 		String fileName = fileStorageService.storeFile(file);
 
@@ -57,7 +57,7 @@ public class FileController {
 	//upload multiple attachments 
 	@PostMapping("/uploadMultipleFiles")
 	public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,
-			@RequestParam("defectId") String defectId) {
+			@RequestParam("defectId") Long defectId) {
 		return Arrays.asList(files).stream().map(file -> {
 			try {
 				return uploadFile(file, defectId);
@@ -70,7 +70,7 @@ public class FileController {
 
     //get mapping- download file for a particular defects
 	@GetMapping("/downloadFile/{defectId}")
-	public ResponseEntity<Resource> downloadFile(@PathVariable String defectId, HttpServletRequest request) {
+	public ResponseEntity<Resource> downloadFile(@PathVariable Long defectId, HttpServletRequest request) {
 		List<DBFile> list = fileMapper.getAttachmentsById(defectId);
 		System.out.println(list);
 		// Try to determine file's content type
@@ -127,7 +127,7 @@ public class FileController {
 
     //list all the attachments for a defect
 	@GetMapping("/listFile/{defectId}")
-	public List<DBFile> listFile(@PathVariable("defectId") String defectId) {
+	public List<DBFile> listFile(@PathVariable("defectId") Long defectId) {
 		List<DBFile> list = fileStorageService.getAttachmentById(defectId);
 		return list;
 	}

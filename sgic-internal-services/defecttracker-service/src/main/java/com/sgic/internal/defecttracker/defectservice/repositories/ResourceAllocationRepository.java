@@ -10,6 +10,7 @@ public interface ResourceAllocationRepository extends JpaRepository<ResourceAllo
 
 //	<---Get Resource By Id Method--->
 	ResourceAllocation findResourceAllocationByresourceId(Long resourceId);
+	
 
 //	<---Custom Query -- use to list Resource by Resource Id --->
 	String fetchAllresourceId = "SELECT resource_id FROM resource_allocation";
@@ -19,5 +20,14 @@ public interface ResourceAllocationRepository extends JpaRepository<ResourceAllo
 
 //	<---save Bulk Method  --->
 	List<ResourceAllocation> save(List<ResourceAllocation> resourceAllocation);
+
+	@Query(value = "from ResourceAllocation where empId=:empId")
+	List<ResourceAllocation> findResourceAllocationByempId(Long empId);
+
+	@Query("SELECT SUM(availability) FROM ResourceAllocation WHERE empId=:empId")
+	Long AvailabileSum(Long empId);
+	
+	@Query(value = "from ResourceAllocation where project_id=:projectId")
+	List<ResourceAllocation> findResourceAllocationByprojectId(String projectId);
 
 }

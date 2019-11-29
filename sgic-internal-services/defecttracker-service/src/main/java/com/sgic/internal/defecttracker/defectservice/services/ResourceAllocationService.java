@@ -2,12 +2,14 @@ package com.sgic.internal.defecttracker.defectservice.services;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.sgic.internal.defecttracker.defectservice.entities.ResourceAllocation;
 
 public interface ResourceAllocationService {
 
 //	<--Save Resource Allocation Method--->
-	public ResourceAllocation saveresource(ResourceAllocation resourceAllocation);
+	public ResponseEntity<String> saveresource(ResourceAllocation resourceAllocation);
 
 //	<---Resource Allocation List Method--->
 	public List<ResourceAllocation> gettAllResource();
@@ -22,6 +24,11 @@ public interface ResourceAllocationService {
 	void saveResourceTable(List<ResourceAllocation> resourceAllocation);
 	
 //  <--- Resource Allocation Delete  Method--->
-	public ResourceAllocation deleteResourceById(Long resourceId);
+	public ResponseEntity<String> deleteResourceById(Long resourceId);
+	
+	public List<ResourceAllocation> getByEmployee(Long empId);
+	
+	public List<ResourceAllocation> getByprojectId(String projectId);
+	
 
 }

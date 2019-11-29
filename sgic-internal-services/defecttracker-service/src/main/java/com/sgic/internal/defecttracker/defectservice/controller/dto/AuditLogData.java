@@ -8,8 +8,12 @@ public class AuditLogData {
 	
 	private Long auditId;
 	private String user;
-	private String defectId;
+	private Long defectId;
 	private String status;
+	private String type;
+	private String severity;
+	private String priority;
+	private String reassignTo;
 	
 	 private static final DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    
@@ -28,10 +32,10 @@ public class AuditLogData {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	public String getDefectId() {
+	public Long getDefectId() {
 		return defectId;
 	}
-	public void setDefectId(String defectId) {
+	public void setDefectId(Long defectId) {
 		this.defectId = defectId;
 	}
 	public String getStatus() {
@@ -46,6 +50,30 @@ public class AuditLogData {
 	public void setFixDate(String fixDate) {
 		this.fixDate = fixDate;
 	}
-
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getSeverity() {
+		return severity;
+	}
+	public void setSeverity(String severity) {
+		this.severity = severity;
+	}
+	public String getPriority() {
+		return priority;
+	}
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+	public String getReassignTo() {
+		return reassignTo;
+	}
+	public void setReassignTo(String reassignTo) {
+		this.reassignTo = reassignTo;
+	}
+	
 
 }

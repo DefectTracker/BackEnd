@@ -41,12 +41,13 @@ public class ResourceAllocationController {
 
 	private static Logger logger = LogManager.getLogger(ResourceAllocationDtoMapper.class);
 
-     // Save Single Object
+	// Save Single Object
 	@PostMapping(value = "/saveresource")
-	public ResourceAllocation createResource(@RequestBody ResourceAllocationDto resourceAllocationDto) {
+	public ResponseEntity<String> createResource(@RequestBody ResourceAllocationDto resourceAllocationDto) {
 		try {
 			logger.info("Resource Controller :--> Successfully Saved");
-			return resourceAllocationDtoMapper.saveResource(resourceAllocationDto);
+			resourceAllocationDtoMapper.saveResource(resourceAllocationDto);
+
 		} catch (Exception ex) {
 			logger.error("Resource Controller :--> error" + ex.getMessage());
 		}
@@ -54,7 +55,7 @@ public class ResourceAllocationController {
 
 	}
 
-    //Save all resource List
+	// Save all resource List
 	@PostMapping(value = "/saveresourceTable")
 	public void createResourceTable(@RequestBody List<ResourceAllocationDto> resourceAllocationDto) {
 		try {
@@ -67,7 +68,7 @@ public class ResourceAllocationController {
 
 	}
 
-   // Get All Resources 
+	// Get All Resources
 	@GetMapping("/GetAllresources")
 	public List<Employee> getEmployeeList() {
 		try {
@@ -87,7 +88,7 @@ public class ResourceAllocationController {
 
 	}
 
-    //Get Resource By Resource Id
+	// Get Resource By Resource Id
 	@GetMapping("/getresourcebyId/{resourceId}")
 	public ResponseEntity<ResourceAllocationDto> getResourceById(@PathVariable(name = "resourceId") Long resourceId) {
 		try {
@@ -100,7 +101,7 @@ public class ResourceAllocationController {
 		return null;
 	}
 
-    //Get all Resources By Resource
+	// Get all Resources By Resource
 	@RequestMapping("/resourceObj/{resourceId}")
 	public ResourceAllocationList getResourceAllocationObj(@PathVariable("resourceId") Long resourceId) {
 		ResourceAllocationList resourceAllocationList = new ResourceAllocationList();
@@ -109,7 +110,7 @@ public class ResourceAllocationController {
 		resourceAllocationList.setResourceId(resourceAllocation.getResourceId());
 		resourceAllocationList.setEmpId(resourceAllocation.getEmpId());
 
-       //Used Rest Template For Get EMPLOYEE SERVICE EMPLOYEE API
+		// Used Rest Template For Get EMPLOYEE SERVICE EMPLOYEE API
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Employee> response = restTemplate.exchange(
 				"http://localhost:8084/employeeservice/getempolyeebyid/" + resourceAllocation.getEmpId(),
@@ -121,7 +122,7 @@ public class ResourceAllocationController {
 
 	}
 
-    //Get Resource +Project+ Employee List 
+	// Get Resource +Project+ Employee List
 	@GetMapping("/getallresource")
 	public List<ResourceAllocationList> getAllSubClassList() {
 		try {
@@ -129,7 +130,8 @@ public class ResourceAllocationController {
 			List<ResourceAllocation> resourceList = resourceAllocationService.getresourceById();
 			int length = resourceList.size();
 			System.out.println(length);
-            //Used To Check ResorceAllocation Table's EmployeeId List + Employee Service EMPLOYEE List And Save Another List (resourceAllocationList)
+			// Used To Check ResorceAllocation Table's EmployeeId List + Employee Service
+			// EMPLOYEE List And Save Another List (resourceAllocationList)
 			List<ResourceAllocationList> retrievedresource = new ArrayList<ResourceAllocationList>();
 			for (int i = 0; i < length; i++) {
 				logger.info("Resource Controller :--> loop started");
@@ -143,12 +145,13 @@ public class ResourceAllocationController {
 				resourceAllocationList.setProjectName(resourceallocation.getProject().getProjectName());
 
 				ResponseEntity<Employee> response = restTemplate.exchange(
-                         //<--Get EMPLOYEE SERVICE EMPLOYEE LIST BY EMPLOYEE ID-->
+						// <--Get EMPLOYEE SERVICE EMPLOYEE LIST BY EMPLOYEE ID-->
 						"http://localhost:8084/employeeservice/getempolyeebyid/" + resourceallocation.getEmpId(),
 						HttpMethod.GET, null, new ParameterizedTypeReference<Employee>() {
 						});
 				Employee employee = response.getBody();
-                //Saved Employee Variable In resourceAllocationList and Get All EmployeeList in responceBody 
+				// Saved Employee Variable In resourceAllocationList and Get All EmployeeList in
+				// responceBody
 				resourceAllocationList.setEmpId(employee.getEmpId());
 				resourceAllocationList.setEmployeeid(employee.getEmployeeid());
 				resourceAllocationList.setFirstname(employee.getFirstname());
@@ -159,18 +162,18 @@ public class ResourceAllocationController {
 				resourceAllocationList.setDesignationid(employee.getDesignationid());
 				resourceAllocationList.setDesignationname(employee.getDesignationname());
 				retrievedresource.add(resourceAllocationList);
-				System.out.println(employee.getEmployeeid());
-				
-				}
-			return retrievedresource;
-		}catch (Exception ex) {
-		
-			logger.error("Resource Controller :--> error" + ex.getMessage());
-	}
-		return null;
-}
+				// System.out.println(employee.getEmployeeid());
 
-     // Delete resources
+			}
+			return retrievedresource;
+		} catch (Exception ex) {
+
+			logger.error("Resource Controller :--> error" + ex.getMessage());
+		}
+		return null;
+	}
+
+	// Delete resources
 	@DeleteMapping("/resource/{resourceId}")
 	public ResponseEntity<String> deleteResourceByResourceId(@PathVariable("resourceId") Long resourceId) {
 		try {
@@ -178,11 +181,29 @@ public class ResourceAllocationController {
 			System.out.println(resourceId);
 			resourceAllocationDtoMapper.deleteResourceByresourceId(resourceId);
 			return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
-		}catch (Exception ex ) {
+		} catch (Exception ex) {
 			logger.error("Resource Controller :--> error" + ex.getMessage());
 		}
 		return null;
-		
+
+	}
+
+	@GetMapping("/getemployee/{empId}")
+	public List<ResourceAllocationDto> getByEmployee(@PathVariable(name = "empId") Long empId) {
+		try {
+			return resourceAllocationDtoMapper.getResourceAllocationByEmployee(empId);
+		} catch (Exception ex) {
+		}
+		return null;
+
+	}
+
+//	Resources By Project
+	@GetMapping("/getprojectbyresource/{projectId}")
+	public ResponseEntity<Object> getByprojectId(@PathVariable(name = "projectId") String projectId) {
+
+		return new ResponseEntity<>(resourceAllocationDtoMapper.getResourceAllocationByprojectId(projectId),
+				HttpStatus.OK);
 	}
 
 }

@@ -8,17 +8,16 @@ import com.sgic.internal.defecttracker.defectservice.entities.Module;
 import com.sgic.internal.defecttracker.defectservice.entities.Project;
 import com.sgic.internal.defecttracker.defectservice.entities.SubModule;
 
+
 public class ModuleConverter {
-	
 	public static ModuleData moduleToModuleData(Module module) {
 		ModuleData moduleData = new ModuleData();
 
 		if (module != null) {
 			moduleData.setModuleId(module.getModuleId());
 			moduleData.setModuleName(module.getModuleName());
-
-			new Module();
-			moduleData.setProjectid(module.getProject().getProjectId());
+            moduleData.setProjectid(module.getProject().getProjectId());
+            moduleData.setProjectName(module.getProject().getProjectName());
 			return moduleData;
 		}
 		return null;
@@ -26,22 +25,19 @@ public class ModuleConverter {
 	
 	public static Module moduleDataToModule(ModuleData moduleData) {
 		Module module = new Module();  
-		// project constructor
-		Project project = new Project();
-		
-		new SubModule();
-		
 		module.setModuleId(moduleData.getModuleId());
 		module.setModuleName(moduleData.getModuleName());
 		
-		// get by project id
+		// project constructor
+		Project project = new Project();
 		project.setProjectId(moduleData.getProjectid());
+		project.setProjectName(moduleData.getProjectName());
 		module.setProject(project);
 		
 		return module;
 	}
 	
-	public static List<ModuleData> moduleToModuleData(List<Module> moduleList) {
+	public static List<ModuleData> moduleToModuleDataList(List<Module> moduleList) {
 
 		if (moduleList != null) {
 			List<ModuleData> lModuleData = new ArrayList<>();
@@ -50,6 +46,10 @@ public class ModuleConverter {
 				
 				moduleData.setModuleId(module.getModuleId());
 				moduleData.setModuleName(module.getModuleName());
+				
+				moduleData.setProjectid(module.getProject().getProjectId());
+				moduleData.setProjectName(module.getProject().getProjectName());
+				
 				lModuleData.add(moduleData);
 			}
 
@@ -58,5 +58,4 @@ public class ModuleConverter {
 		return null;
 
 	}
-
 }

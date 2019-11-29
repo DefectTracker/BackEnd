@@ -11,11 +11,7 @@ public interface ModuleService {
 
 	public boolean isModuleAlreadyExists(String moduleId);
 
-	public List<Module> getallDetails();
-
-//	public List<Object> getSubmodule(String projectid);
-	
-	
+	public List<Module> getallModuleDetails(String projectid);
 
 	public void deleteById(String moduleId);
 
@@ -28,9 +24,12 @@ public interface ModuleService {
 	// service for get project id
 	public List<Module> getByprojectId(String projectid);
 
-//	List<Object> getSubmodule(String subModuleId);
+	List<Module> getallDetails(String moduleId);
+	
+	Module getByallModuleId(String moduleId);
+	
+	public Module moduleUpdate(Module module);
 
-	// service for submodule id
-//	public List<Module> getBySubModuleId(String subModuleId);
-
+	// List Module Info
+	public List<Module> findByModuleOrderByModuleIdDesc(String moduleId);
 }
